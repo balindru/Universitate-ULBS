@@ -16,21 +16,12 @@ public class Student{
         nume=num;
         formatieDeStudiu=form;
     }
-    public int GetNr()
-    {
-        return NumarMatricol;
-    }
-    public String GetPrenume()
-    {
-        return prenume;
-    }
-    public String GetNume()
-    {
-        return nume;
-    }
-    public String GetFormatie()
-    {
-        return formatieDeStudiu;
+    public String toString() {
+        return "Student " +
+                "Nr. Matricol: " + NumarMatricol +
+                ", Nume: " + nume +
+                ", Prenume: " + prenume +
+                ", Formatie: " + formatieDeStudiu;
     }
 }
 
@@ -38,8 +29,5 @@ public class Student{
 void main() {
     Student s= new Student(423,"Dunitru","Vasile","Format");
 
-    System.out.println(s.GetNr());
-    System.out.println(s.GetNume());
-    System.out.println(s.GetPrenume());
-    System.out.println(s.GetFormatie());
+    System.out.println(s);
 }
