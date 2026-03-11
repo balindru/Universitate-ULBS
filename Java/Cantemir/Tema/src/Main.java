@@ -12,7 +12,7 @@ public class Student{
     Student(int nr, String pre,String num,String form)
     {
         NumarMatricol=nr;
-        prenume=pre;
+        prenume=pre; //test
         nume=num;
         formatieDeStudiu=form;
     }
