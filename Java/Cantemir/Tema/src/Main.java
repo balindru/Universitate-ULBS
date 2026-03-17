@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+
 public class Student{
+
     private
     int NumarMatricol;
     String prenume,nume,formatieDeStudiu;
@@ -27,7 +30,15 @@ public class Student{
 
 
 void main() {
-    Student s= new Student(423,"Dunitru","Vasile","Format");
+    ArrayList<Student> list = new ArrayList<>();
+    list.add(new Student(423, "Dumitru", "Vasile", "C22/1"));
+    list.add(new Student(284, "Alis", "Popa", "TI21/2"));
+    list.add(new Student(130, "Ion", "Ionescu", "TI21/1"));
 
-    System.out.println(s);
+    System.out.println("Lista studenti:");
+    for (Student s : list) {
+        System.out.println(s);
+    }
+
+
 }
