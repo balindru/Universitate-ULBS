@@ -23,6 +23,12 @@ void main() {
         n=n.concat(w).concat("\n");
     }
     System.out.println(n);
-
+    try {
+        FileWriter fw = new FileWriter("out.txt");
+        fw.write(n);
+        fw.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
 
 }
