@@ -16,10 +16,28 @@ public class Student{
     Student(int nr, String pre,String num,String form)
     {
         NumarMatricol=nr;
-        prenume=pre; //test
+        prenume=pre;
         nume=num;
         formatieDeStudiu=form;
     }
+
+    public int getNumarMatricol() {
+        return NumarMatricol;
+    }
+
+    public String getPrenume() {
+        return prenume;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public String getFormatieDeStudiu() {
+        return formatieDeStudiu;
+    }
+
+
     public String toString() {
         return "Student " +
                 "Nr. Matricol: " + NumarMatricol +
@@ -27,6 +45,8 @@ public class Student{
                 ", Prenume: " + prenume +
                 ", Formatie: " + formatieDeStudiu;
     }
+
+
     @Override
     public boolean equals(Object o) {
         Student s = (Student) o;
@@ -39,23 +59,64 @@ public class Student{
     public int hashCode() {
         return (prenume + nume + formatieDeStudiu).hashCode();
     }
+
 }
+
 
 void main() {
     ArrayList<Student> list = new ArrayList<>();
-    list.add(new Student(423, "Dumitru", "Vasile", "C22/1"));
-    list.add(new Student(284, "Amir", "Tanasa", "T21/2"));
-    list.add(new Student(130, "Ion", "Ionescu", "TI21/1"));
-    Set set = new HashSet();
-    set.addAll(list);
+    ArrayList<Student> list2 = new ArrayList<>();
+    FileInputStream f = null;
+    try {
+        f = new FileInputStream("studenti_in.txt");
+    } catch (FileNotFoundException ex)
+    { ex.printStackTrace();
+    }
+    Scanner sc = new Scanner(f);
+    sc.useDelimiter(",|\\n");
+    while(sc.hasNext())
+    {
+        list.add(new Student(sc.nextInt(),sc.next(),sc.next(),sc.next()));
+    }
+    sc.close();
+    list2=list;
 
-    System.out.println("Lista studenti:");
     for (Student s : list) {
         System.out.println(s);
     }
 
+    System.out.println();
+    list.sort(Comparator.comparing(Student::getNume));
 
-    System.out.println(set.contains(new Student(284, "Amir", "Tanasa", "T21/2")));
-    System.out.println(set.contains(new Student(120, "Ion", "Ionescu", "TI21/1")));
+    for (Student s : list) {
+        System.out.println(s);
+    }
 
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter("studenti_out.txt"))) {
+        for (Student s : list) {
+            bw.write(s.getNumarMatricol() + "," +
+                    s.getPrenume() + "," +
+                    s.getNume() + "," +
+                    s.getFormatieDeStudiu());
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    list.sort(Comparator.comparing(Student::getFormatieDeStudiu).thenComparing(Student::getNume));
+
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter("studenti_out_sorted.txt"))) {
+        for (Student s : list2) {
+            bw.write(s.getNumarMatricol() + "," +
+                    s.getPrenume() + "," +
+                    s.getNume() + "," +
+                    s.getFormatieDeStudiu());
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    System.out.println();
+    for (Student s : list2) {
+        System.out.println(s);
+    }
 }
