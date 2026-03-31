@@ -44,13 +44,15 @@ public class AppLab4 {
         System.out.println(varste);
         System.out.println(adrese);
         HashMap<String, Tanar> tineri=new HashMap<>();
-        for (Object s : adrese.keySet())
+        for (String s : varste.keySet())
         {
-            Object p = adrese.get(s);
-            tineri.put("4",new Tanar((String) s,3,(String)p));
-
-            System.out.println(s);
+            int m=varste.get(s);
+            String ad=adrese.get(s);
+            tineri.put(s,new Tanar(s,m,ad));
         }
 
+        System.out.println();
+
+        System.out.println(tineri);
     }
 }

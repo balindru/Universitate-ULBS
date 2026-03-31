@@ -1,28 +1,27 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-
 public class Student{
 
     private
-    int NumarMatricol;
+    int numarMatricol;
     String prenume,nume,formatieDeStudiu;
+    Double nota;
     Student()
     {
-        NumarMatricol=0;
+        numarMatricol=0;
         prenume="Nespecificat";
         nume="Nespecificat";
         formatieDeStudiu="Nespecificat";
     }
     Student(int nr, String pre,String num,String form)
     {
-        NumarMatricol=nr;
+        numarMatricol=nr;
         prenume=pre;
         nume=num;
         formatieDeStudiu=form;
+        this.nota=0.0;
     }
 
     public int getNumarMatricol() {
-        return NumarMatricol;
+        return numarMatricol;
     }
 
     public String getPrenume() {
@@ -37,35 +36,38 @@ public class Student{
         return formatieDeStudiu;
     }
 
+    public void setNota(Double nota) { this.nota = nota; }
+
 
     public String toString() {
         return "Student " +
-                "Nr. Matricol: " + NumarMatricol +
+                "Nr. Matricol: " + numarMatricol +
                 ", Nume: " + nume +
                 ", Prenume: " + prenume +
-                ", Formatie: " + formatieDeStudiu;
+                ", Formatie: " + formatieDeStudiu +
+                ", Nota: "+ nota;
     }
+
 
 
     @Override
     public boolean equals(Object o) {
-        Student s = (Student) o;
-        return prenume.equals(s.prenume) &&
-                nume.equals(s.nume) &&
-                formatieDeStudiu.equals(s.formatieDeStudiu);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return numarMatricol == student.numarMatricol;
     }
 
     @Override
     public int hashCode() {
-        return (prenume + nume + formatieDeStudiu).hashCode();
+        return Integer.hashCode(numarMatricol);
     }
 
 }
 
 
 void main() {
-    ArrayList<Student> list = new ArrayList<>();
-    ArrayList<Student> list2 = new ArrayList<>();
+    HashMap<Integer, Student> studenti = new HashMap<>();
     FileInputStream f = null;
     try {
         f = new FileInputStream("studenti_in.txt");
@@ -73,50 +75,32 @@ void main() {
     { ex.printStackTrace();
     }
     Scanner sc = new Scanner(f);
-    sc.useDelimiter(",|\\n");
+    sc.useDelimiter(",|\\r?\\n");
     while(sc.hasNext())
     {
-        list.add(new Student(sc.nextInt(),sc.next(),sc.next(),sc.next()));
+        int nr=sc.nextInt();
+        studenti.put(nr,(new Student(nr,sc.next(),sc.next(),sc.next())));
     }
     sc.close();
-    list2=list;
 
-    for (Student s : list) {
-        System.out.println(s);
+    try {
+        f = new FileInputStream("note_anon.txt");
+    } catch (FileNotFoundException ex)
+    { ex.printStackTrace();
     }
-
-    System.out.println();
-    list.sort(Comparator.comparing(Student::getNume));
-
-    for (Student s : list) {
-        System.out.println(s);
-    }
-
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter("studenti_out.txt"))) {
-        for (Student s : list) {
-            bw.write(s.getNumarMatricol() + "," +
-                    s.getPrenume() + "," +
-                    s.getNume() + "," +
-                    s.getFormatieDeStudiu());
+    sc = new Scanner(f);
+    sc.useDelimiter(",|\\r?\\n");
+    while(sc.hasNext())
+    {
+        int nr=sc.nextInt();
+        Double nota=sc.nextDouble();
+        Student s = studenti.get(nr);
+        if (s != null) {
+            s.setNota(nota);
         }
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-
-    list.sort(Comparator.comparing(Student::getFormatieDeStudiu).thenComparing(Student::getNume));
-
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter("studenti_out_sorted.txt"))) {
-        for (Student s : list2) {
-            bw.write(s.getNumarMatricol() + "," +
-                    s.getPrenume() + "," +
-                    s.getNume() + "," +
-                    s.getFormatieDeStudiu());
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    System.out.println();
-    for (Student s : list2) {
+    for (Student s : studenti.values()) {
         System.out.println(s);
     }
+
 }
