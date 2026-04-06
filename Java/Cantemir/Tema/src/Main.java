@@ -81,50 +81,49 @@ public static float gasesteNota(String prenume, String nume, Map<Integer, Studen
     }
     return 0.0f;
 }
+class StudentBursieri extends Student
+{
+    double cuantumBursa;
+    StudentBursieri(int nr, String pre,String num,String form, double bursa)
+    {
+        super(nr, pre, num, form);
+        cuantumBursa=bursa;
+    }
+    @Override
+    public String toString() {
+        return super.toString() + ", Bursa: " + cuantumBursa;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentBursieri sb = (StudentBursieri) o;
+        return Double.compare(cuantumBursa, sb.cuantumBursa) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Double.hashCode(cuantumBursa);
+    }
+}
+public static void salveazaInFisier(String numeFisier, List<? extends Student> colectie) {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(numeFisier))) {
+        for (Student s : colectie) {
+            bw.write(s.toString());
+            bw.newLine();
+        }
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+}
 
 void main() {
 
-
-
-    HashMap<Integer, Student> studenti = new HashMap<>();
-    FileInputStream f = null;
-    try {
-        f = new FileInputStream("studenti_in.txt");
-    } catch (FileNotFoundException ex)
-    { ex.printStackTrace();
-    }
-    Scanner sc = new Scanner(f);
-    sc.useDelimiter(",|\\r?\\n");
-    while(sc.hasNext())
-    {
-        int nr=sc.nextInt();
-        studenti.put(nr,(new Student(nr,sc.next(),sc.next(),sc.next())));
-    }
-    sc.close();
-
-    try {
-        f = new FileInputStream("note_anon.txt");
-    } catch (FileNotFoundException ex)
-    { ex.printStackTrace();
-    }
-    sc = new Scanner(f);
-    sc.useDelimiter(",|\\r?\\n");
-    while(sc.hasNext())
-    {
-        int nr=sc.nextInt();
-        Float nota=sc.nextFloat();
-        Student s = studenti.get(nr);
-        if (s != null) {
-            s.setNota(nota);
-        }
-    }
-    for (Student s : studenti.values()) {
-        System.out.println(s);
-    }
-
-    float notaM = gasesteNota("Bianca", "Popescu", studenti);
-    float notaN = gasesteNota("Ioan", "Popa", studenti);
-
-    System.out.println("Bianca " + notaM);
-    System.out.println("Ioan " + notaN);
+    List<StudentBursieri> bursieri = new ArrayList<>();
+    bursieri.add(new StudentBursieri(1025, "Andrei",   "Popa",     "ISM141/2", 725.50));
+    bursieri.add(new StudentBursieri(1024, "Ioan",     "Mihalcea", "ISM141/1", 801.10));
+    bursieri.add(new StudentBursieri(1026, "Anamaria", "Prodan",   "TI131/1",  745.50));
+    bursieri.add(new StudentBursieri(1029, "Bianca",   "Popescu",  "TI131/1",  780.80));
+    salveazaInFisier("bursieri_out.txt", bursieri);
 }
