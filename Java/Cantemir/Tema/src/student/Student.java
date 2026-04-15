@@ -2,17 +2,16 @@ package student;
 
 public class Student {
 
-
     private int numarMatricol;
     private String prenume, nume, formatieDeStudiu;
-    private Float nota=1.0f;
+    private Float nota = 1.0f;
 
-//    student.Student() {
-//        numarMatricol = 0;
-//        prenume = "Nespecificat";
-//        nume = "Nespecificat";
-//        formatieDeStudiu = "Nespecificat";
-//    }
+    public Student() {
+        numarMatricol = 0;
+        prenume = "Nespecificat";
+        nume = "Nespecificat";
+        formatieDeStudiu = "Nespecificat";
+    }
 
     public Student(int nr, String pre, String num, String form) {
         numarMatricol = nr;
@@ -46,16 +45,15 @@ public class Student {
         this.nota = nota;
     }
 
-
+    @Override
     public String toString() {
-        return "student.Student " +
+        return "Student " +
                 "Nr. Matricol: " + numarMatricol +
                 ", Nume: " + nume +
                 ", Prenume: " + prenume +
                 ", Formatie: " + formatieDeStudiu +
                 ", Nota: " + nota;
     }
-
 
     @Override
     public boolean equals(Object o) {

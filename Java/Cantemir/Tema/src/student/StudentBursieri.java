@@ -1,23 +1,21 @@
 package student;
 
-
 public class StudentBursieri extends Student {
 
-    double cuantumBursa;
+    private double cuantumBursa;
 
     public StudentBursieri(int nr, String pre, String num, String form, double bursa) {
         super(nr, pre, num, form);
         setNota(2.0f);
-        cuantumBursa = bursa;
-
+        this.cuantumBursa = bursa;
     }
-    public void setNota(Float nota) {
-        super.setNota(nota);
+
+    public double getCuantumBursa() {
+        return cuantumBursa;
     }
 
     @Override
     public String toString() {
-
         return super.toString() + ", Bursa: " + cuantumBursa;
     }
 
