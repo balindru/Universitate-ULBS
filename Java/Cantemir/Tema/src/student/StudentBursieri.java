@@ -6,7 +6,6 @@ public class StudentBursieri extends Student {
 
     public StudentBursieri(int nr, String pre, String num, String form, double bursa) {
         super(nr, pre, num, form);
-        setNota(2.0f);
         this.cuantumBursa = bursa;
     }
 

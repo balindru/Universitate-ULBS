@@ -26,19 +26,19 @@ public class AplicatieCuBursa {
         List<StudentBursieri> lista = new ArrayList<>();
 
         StudentBursieri s1 = new StudentBursieri(1025, "Andrei", "Popa", "ISM141/2", 725.50);
-        s1.setNota(8.70f);
+
 
         StudentBursieri s2 = new StudentBursieri(1024, "Ioan", "Mihalcea", "ISM141/1", 801.10);
-        s2.setNota(9.80f);
+
 
         StudentBursieri s3 = new StudentBursieri(1029, "Bianca", "Popescu", "TI131/1", 780.80);
-        s3.setNota(9.10f);
+
 
         StudentBursieri s4 = new StudentBursieri(1026, "Anamaria", "Prodan", "TI131/1", 745.50);
-        s4.setNota(8.90f);
+
 
         StudentBursieri s5 = new StudentBursieri(1030, "Bianca", "Popescu", "TI131/1", 100.00);
-        s5.setNota(9.10f);
+
 
         lista.add(s1);
         lista.add(s2);

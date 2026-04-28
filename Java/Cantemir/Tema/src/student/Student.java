@@ -2,9 +2,9 @@ package student;
 
 public class Student {
 
-    private int numarMatricol;
-    private String prenume, nume, formatieDeStudiu;
-    private Float nota = 1.0f;
+    private final int numarMatricol;
+    private final String prenume, nume, formatieDeStudiu;
+    private final Float nota = 1.0f;
 
     public Student() {
         numarMatricol = 0;
@@ -18,7 +18,6 @@ public class Student {
         prenume = pre;
         nume = num;
         formatieDeStudiu = form;
-        nota = 0f;
     }
 
     public int getNumarMatricol() {
@@ -41,9 +40,6 @@ public class Student {
         return nota;
     }
 
-    public void setNota(Float nota) {
-        this.nota = nota;
-    }
 
     @Override
     public String toString() {

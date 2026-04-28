@@ -8,7 +8,6 @@ public class StudentBursier extends Student {
 
     public StudentBursier(int nr, String pre, String num, String form, double nota, double bursa) {
         super(nr, pre, num, form);
-        setNota((float) nota);
         this.cuantumBursa = bursa;
     }
 
